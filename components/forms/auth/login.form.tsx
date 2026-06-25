@@ -1,40 +1,68 @@
-import React from 'react'
+"use client";
+import Button from "@/components/common/ui/button";
+import Input from "@/components/common/ui/input";
+import { loginSchema } from "@/schema/auth.schema";
+import { TLoginInput } from "@/types/auth.types";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
+
+
+
 
 const LoginFrom = () => {
+
+    const { register, handleSubmit, formState: { errors, } } = useForm({
+        defaultValues: {
+            email: "",
+            password: "",
+        },
+        resolver: yupResolver(loginSchema)
+    });
+
+
+    console.log(errors)
+
+    const onSubmit = (data: TLoginInput) => {
+        console.log("form data", data);
+        // http post /auth/login
+    };
+
     return (
-        <div className='w-full '>
-            <form className='flex flex-col gap-4 w-full'>
-                <div className='w-full flex flex-col gap-1'>
-                    <label htmlFor='email' className='text-[14px] font-medium '>
-                        Email
-                    </label>
-                    <input
-                        id='email'
-                        className='w-full border-[1.5px] border-indigo-500 px-2 py-2 rounded-sm '
-                        type='text' placeholder='johndoe@gmail.com' />
+        <div className="w-full ">
+            <form
+                onSubmit={handleSubmit(onSubmit)}
+                className="flex flex-col gap-4 w-full"
+            >
+                {/* email input */}
+                <Input
+                    name="email"
+                    register={register}
+                    label={"Email"}
+                    id="email"
+                    required={true}
+                    placeholder="johndoe@gmail.com"
+                    type="text"
+                    error={errors?.email?.message}
+                />
 
-                </div>
+                {/* password input */}
+                <Input
+                    register={register}
+                    name="password"
+                    label="Password"
+                    placeholder="********"
+                    id="password"
+                    type="password"
+                    required
+                    error={errors?.password?.message}
 
-                <div className='w-full flex flex-col gap-1'>
-                    <label htmlFor='password' className='text-[14px] font-medium '>
-                        Password
-                    </label>
-                    <input
-                        id='password'
-                        className='w-full border-[1.5px] border-indigo-500 px-2 py-2 rounded-sm '
-                        type='password' placeholder='password'
-                    />
-                </div>
+                />
 
                 {/*button */}
-                <button
-                    className='w-full bg-linear-to-r from-indigo-400 to-indigo-600 py-2.5 rounded-sm cursor-pointer text-white font-bold mt-3 '
-                >
-                    Sign In
-                </button>
+                <Button label="Sign In" type="submit" />
             </form>
         </div>
-    )
-}
+    );
+};
 
-export default LoginFrom
+export default LoginFrom;

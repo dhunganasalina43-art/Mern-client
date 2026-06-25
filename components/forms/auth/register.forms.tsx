@@ -1,83 +1,103 @@
-import React from "react";
+'use client'
+
+import Button from '@/components/common/ui/button'
+import Input from '@/components/common/ui/input'
+import { registerSchema } from '@/schema/auth.schema'
+import { TRegisterInput } from '@/types/auth.types'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { useForm } from 'react-hook-form'
+
+
+
 
 const RegisterForm = () => {
+    const { register, handleSubmit, formState: { errors } } = useForm({
+        defaultValues: {
+            full_name: '',
+            email: '',
+            password: '',
+            phone: '',
+            c_password: ''
+        },
+        resolver: yupResolver(registerSchema)
+
+    })
+
+
+
+    const onSubmit = (data: TRegisterInput) => {
+        console.log('form data', data)
+    }
+
+    console.log(errors)
     return (
-        <div className="w-full">
-            <form className="w-full flex flex-col gap-4">
-                {/* Full Name */}
-                {/* <div className="w-full flex flex-col gap-1">
-                    <label
-                        htmlFor="fullName"
-                        className="text-[14px] font-medium"
-                    >
-                        Full Name
-                    </label>
-                    <input
-                        id="fullName"
-                        className="w-full border-[1.5px] border-indigo-500 px-2 py-2 rounded-sm"
-                        type="text"
-                        placeholder="Enter your full name"
-                    />
-                </div>
+        <div className="w-full ">
+            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4 w-full">
+                <Input
+                    register={register}
+                    name='full_name'
+                    id='full_name'
+                    type='text'
+                    placeholder='John Doe'
+                    required
+                    label='Full Name'
+                    error={errors?.full_name?.message}
+                />
 
-                {/* Email */}
-                {/* <div className="w-full flex flex-col gap-1">
-                    <label
-                        htmlFor="email"
-                        className="text-[14px] font-medium"
-                    >
-                        Email
-                    </label>
-                    <input
-                        id="email"
-                        className="w-full border-[1.5px] border-indigo-500 px-2 py-2 rounded-sm"
-                        type="email"
-                        placeholder="Enter your email"
-                    />
-                </div>
+                <Input
+                    register={register}
+                    name="email"
+                    label={'Email'}
+                    id="email"
+                    placeholder="johndoe@gmail.com"
+                    required
+                    type="text"
+                    error={errors?.email?.message}
 
-                {/* Password */}
-                <div className="w-full flex flex-col gap-1">
-                    <label
-                        htmlFor="password"
-                        className="text-[14px] font-medium"
-                    >
-                        Password
-                    </label>
-                    <input
-                        id="password"
-                        className="w-full border-[1.5px] border-indigo-500 px-2 py-2 rounded-sm"
-                        type="password"
-                        placeholder="Enter password"
-                    />
-                </div>
+                />
 
-                {/* Confirm Password */}
-                <div className="w-full flex flex-col gap-1">
-                    <label
-                        htmlFor="confirmPassword"
-                        className="text-[14px] font-medium"
-                    >
-                        Confirm Password
-                    </label>
-                    <input
-                        id="confirmPassword"
-                        className="w-full border-[1.5px] border-indigo-500 px-2 py-2 rounded-sm"
-                        type="password"
-                        placeholder="Confirm password"
-                    />
-                </div>
+                <Input
+                    register={register}
+                    name="password"
+                    label="Password"
+                    placeholder="********"
+                    id="password"
+                    required
+                    type="password"
+                    error={errors?.password?.message}
 
-                {/* Button */}
-                <button
-                    type="submit"
-                    className="w-full bg-linear-to-r from-indigo-400 to-indigo-600 py-2.5 rounded-sm cursor-pointer text-white font-bold mt-3"
-                > */} *
-                    Sign Up
-                </button>
+                />
+
+                <Input
+                    register={register}
+                    name="c_password"
+                    label="Retype Password"
+                    placeholder="********"
+                    id="c_password"
+                    required
+                    type="password"
+                    error={errors?.c_password?.message}
+
+                />
+
+                <Input
+                    register={register}
+                    label='Phone Number'
+                    id='phone'
+                    name='phone'
+                    type='text'
+                    placeholder='98653****0'
+                />
+
+
+                {/*button */}
+                <Button
+                    label='Sign Up'
+                    type='submit'
+                />
             </form>
         </div>
-    );
-};
+    )
+}
 
-export default RegisterForm;
+export default RegisterForm

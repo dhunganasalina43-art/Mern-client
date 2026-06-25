@@ -1,5 +1,6 @@
 import LoginFrom from "@/components/forms/auth/login.form";
 import { Metadata } from "next";
+import Link from "next/link";
 
 export const metadata: Metadata = {
     title: "ECOM | sign in",
@@ -17,11 +18,15 @@ const LoginPage = () => {
                         Welcome Back,
                     </h1>
                     <p className="text-sm tracking-wider font-normal">
-                        Login to access you account.
+                        Login to access your account.
                     </p>
                 </div>
                 {/* form */}
                 <LoginFrom />
+
+                <div className='text-center -mt-4'>
+                    <p>Don&apos;t have an account? <Link href={'/auth/register'} className='italic text-indigo-500'>Sign Up</Link></p>
+                </div>
             </div>
         </main>
     );
