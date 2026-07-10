@@ -7,7 +7,7 @@ const BrandsPage = () => {
             <PageTitle
                 title='All Products'
                 linkText='Add New'
-                link='/admin/products/create'
+                link='/admin/create'
             />
         </main>
     )

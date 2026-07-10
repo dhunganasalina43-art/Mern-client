@@ -1,4 +1,3 @@
-import CategoryList from "@/components/admin/list/category.list"
 import PageTitle from '@/components/admin/page-title'
 import React from 'react'
 
@@ -11,8 +10,6 @@ const CategoriesPage = () => {
                 link='/admin/categories/create'
 
             />
-
-            <CategoryList />
         </main>
     )
 }

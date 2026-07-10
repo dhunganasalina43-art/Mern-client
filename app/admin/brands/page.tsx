@@ -1,4 +1,4 @@
-import BrandList from '@/components/admin/brand/list'
+import BrandList from '@/components/admin/list/brand.list'
 import PageTitle from '@/components/admin/page-title'
 import React from 'react'
 

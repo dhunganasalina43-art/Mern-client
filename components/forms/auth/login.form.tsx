@@ -5,11 +5,14 @@ import { loginSchema } from "@/schema/auth.schema";
 import { TLoginInput } from "@/types/auth.types";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-
-
+import { login } from "@/api/auth.api";
+import { useMutation } from '@tanstack/react-query'
+import { useRouter } from "next/navigation";
+import toast from 'react-hot-toast'
 
 
 const LoginFrom = () => {
+    const router = useRouter();
 
     const { register, handleSubmit, formState: { errors, } } = useForm({
         defaultValues: {
@@ -19,12 +22,24 @@ const LoginFrom = () => {
         resolver: yupResolver(loginSchema)
     });
 
+    // react query
+    const { mutate, isPending } = useMutation({
+        mutationFn: login,
+        onSuccess: (response) => {
+            console.log('on Success', response)
+            toast.success(response?.message ?? 'Login success!!')
+            router.replace('/')
+        },
+        onError: (error) => {
+            console.log('on Error', error)
+            toast.error(error?.message ?? 'Login Failed!!')
+        }
 
-    console.log(errors)
+    })
+    console.log("isPending", isPending)
 
     const onSubmit = (data: TLoginInput) => {
-        console.log("form data", data);
-        // http post /auth/login
+        mutate(data)
     };
 
     return (
@@ -59,7 +74,7 @@ const LoginFrom = () => {
                 />
 
                 {/*button */}
-                <Button label="Sign In" type="submit" />
+                <Button label={isPending ? 'Signing In..' : "Sign In"} type="submit" />
             </form>
         </div>
     );

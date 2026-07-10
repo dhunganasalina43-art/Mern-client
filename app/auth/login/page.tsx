@@ -2,10 +2,10 @@ import LoginFrom from "@/components/forms/auth/login.form";
 import { Metadata } from "next";
 import Link from "next/link";
 
-export const metadata: Metadata = {
-    title: "ECOM | sign in",
-    description: "e-commerce sign in page",
-};
+// export const metadata: Metadata = {
+//     title: "Click & Cart | sign in",
+//     description: "e-commerce sign in page",
+// };
 
 const LoginPage = () => {
     return (

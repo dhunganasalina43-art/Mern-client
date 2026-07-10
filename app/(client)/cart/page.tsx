@@ -1,3 +1,6 @@
+'use client'
+import withAuth from '@/hoc/withAuth.hoc'
+
 import React from 'react'
 
 const CartPage = () => {
@@ -5,5 +8,5 @@ const CartPage = () => {
         <main className='h-full'>Cart Page</main>
     )
 }
-
-export default CartPage
+const Page = withAuth(CartPage,[Role.USER])
+export default Page
