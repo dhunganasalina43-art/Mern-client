@@ -26,17 +26,14 @@ const LoginFrom = () => {
     const { mutate, isPending } = useMutation({
         mutationFn: login,
         onSuccess: (response) => {
-            console.log('on Success', response)
             toast.success(response?.message ?? 'Login success!!')
             router.replace('/')
         },
         onError: (error) => {
-            console.log('on Error', error)
             toast.error(error?.message ?? 'Login Failed!!')
         }
 
     })
-    console.log("isPending", isPending)
 
     const onSubmit = (data: TLoginInput) => {
         mutate(data)

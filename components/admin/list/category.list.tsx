@@ -3,20 +3,17 @@ import Image from 'next/image'
 import AdminListCard from '../list-card'
 import Table from '../table'
 import { createColumnHelper } from '@tanstack/react-table'
-import { CiTrash } from "react-icons/ci";
-import { MdEditDocument } from "react-icons/md";
 import { getAllCategories } from '@/api/category.api'
 import { useQuery } from '@tanstack/react-query'
 import ActionButtons from '@/components/common/ui/action-button'
 import toast from 'react-hot-toast'
 const CategoryList = () => {
 
-    const { isLoading, data, error } = useQuery({
+    const { data, } = useQuery({
         queryFn: getAllCategories,
         queryKey: ['get-all-categories'],
     })
 
-    console.log(isLoading, data, error)
 
 
 
@@ -32,7 +29,6 @@ const CategoryList = () => {
         columnHelper.accessor((row) => row.image, {
             id: 'image',
             cell: (info) => {
-                console.log(info.row.original.name)
                 return (
                     <div className='h-16 max-w-20 mx-auto'>
                         <Image

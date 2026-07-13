@@ -25,7 +25,6 @@ const CategoryList = () => {
         queryKey: ['get-all-categories'],
     })
 
-    console.log(isLoading, data, error)
 
     // const categories = Array.from({ length: 12 }, (_, i) => i + 1)
     // console.log(categories)

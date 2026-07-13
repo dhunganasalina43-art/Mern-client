@@ -8,7 +8,6 @@ export const login = async (data: TLoginInput) => {
     const response = await api.post("/auth/login", data);
     return response.data;
   } catch (error: any) {
-    console.log(error.response.data);
     throw error.response.data;
   }
 };
@@ -19,7 +18,6 @@ export const register = async (data: TRegisterInput) => {
     const response = await api.post("/auth/register", data);
     return response.data;
   } catch (error: any) {
-    console.log(error.response.data);
     throw error.response.data;
   }
 };
@@ -31,7 +29,6 @@ export const getProfile = async () => {
     const response = await api.get("/auth/me");
     return response.data;
   } catch (error: any) {
-    console.log(error.response.data);
     throw error.response.data;
   }
 };

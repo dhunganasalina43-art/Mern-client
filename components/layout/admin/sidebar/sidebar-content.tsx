@@ -42,7 +42,6 @@ const links = [
 
 const SidebarLinks = () => {
     const pathname = usePathname()
-    console.log(pathname)
     return (
         <div className=' h-full w-full flex flex-col gap-1 px-1 mt-4 '>
             {

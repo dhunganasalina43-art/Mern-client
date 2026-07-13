@@ -2,18 +2,16 @@
 
 import Button from '@/components/common/ui/button'
 import Input from '@/components/common/ui/input'
-import { register } from '@/api/auth.api'
 import { registerSchema } from '@/schema/auth.schema'
 import { TRegisterInput } from '@/types/auth.types'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
 
+
+
+
 const RegisterForm = () => {
-    const {
-        register: formRegister,
-        handleSubmit,
-        formState: { errors }
-    } = useForm<TRegisterInput>({
+    const { register, handleSubmit, formState: { errors } } = useForm({
         defaultValues: {
             full_name: '',
             email: '',
@@ -22,49 +20,43 @@ const RegisterForm = () => {
             c_password: ''
         },
         resolver: yupResolver(registerSchema)
+
     })
 
-    const onSubmit = async (data: TRegisterInput) => {
-        try {
-            const response = await register(data)
 
-            console.log('Register Success:', response)
 
-            alert('Registration Successful')
-        } catch (error) {
-            console.log('Register Error:', error)
-        }
+    const onSubmit = (data: TRegisterInput) => {
+        console.log('form data', data)
     }
 
-    console.log(errors)
-
     return (
-        <div className="w-full">
+        <div className="w-full ">
             <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4 w-full">
                 <Input
-                    register={formRegister}
-                    name="full_name"
-                    id="full_name"
-                    type="text"
-                    placeholder="John Doe"
+                    register={register}
+                    name='full_name'
+                    id='full_name'
+                    type='text'
+                    placeholder='John Doe'
                     required
-                    label="Full Name"
+                    label='Full Name'
                     error={errors?.full_name?.message}
                 />
 
                 <Input
-                    register={formRegister}
+                    register={register}
                     name="email"
-                    label="Email"
+                    label={'Email'}
                     id="email"
                     placeholder="johndoe@gmail.com"
                     required
                     type="text"
                     error={errors?.email?.message}
+
                 />
 
                 <Input
-                    register={formRegister}
+                    register={register}
                     name="password"
                     label="Password"
                     placeholder="********"
@@ -72,10 +64,11 @@ const RegisterForm = () => {
                     required
                     type="password"
                     error={errors?.password?.message}
+
                 />
 
                 <Input
-                    register={formRegister}
+                    register={register}
                     name="c_password"
                     label="Retype Password"
                     placeholder="********"
@@ -83,21 +76,23 @@ const RegisterForm = () => {
                     required
                     type="password"
                     error={errors?.c_password?.message}
+
                 />
 
                 <Input
-                    register={formRegister}
-                    label="Phone Number"
-                    id="phone"
-                    name="phone"
-                    type="text"
-                    placeholder="98653****0"
-                    error={errors?.phone?.message}
+                    register={register}
+                    label='Phone Number'
+                    id='phone'
+                    name='phone'
+                    type='text'
+                    placeholder='98653****0'
                 />
 
+
+                {/*button */}
                 <Button
-                    label="Sign Up"
-                    type="submit"
+                    label='Sign Up'
+                    type='submit'
                 />
             </form>
         </div>

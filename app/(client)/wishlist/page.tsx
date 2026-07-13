@@ -1,6 +1,6 @@
-'useClient'
+'use client'
 import withAuth from '@/hoc/withAuth.hoc'
-import {Role} from '@/types/enum.types'
+import { Role } from '@/types/enum.types'
 import React from 'react'
 
 const WishlistPage = () => {
@@ -8,5 +8,6 @@ const WishlistPage = () => {
         <main className='h-full'>Wishlist Page</main>
     )
 }
-const Page = withAuth(WishlistPage,[Role.USER])
+
+const Page = withAuth(WishlistPage, [Role.USER])
 export default Page

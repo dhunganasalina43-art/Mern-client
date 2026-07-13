@@ -20,7 +20,6 @@ const BrandForm = () => {
     })
 
     const onSubmit = (data: TBrandInput) => {
-        console.log(data)
     }
 
 

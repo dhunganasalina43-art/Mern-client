@@ -16,7 +16,6 @@ const AuthProvider = ({
         retry: false,
     })
 
-    console.log('auth provider', data?.data?.data)
 
     return (
         <AuthContext.Provider

@@ -11,7 +11,6 @@ import { useAuth } from "@/hooks/auth.hook";
 import { IUser } from "@/contexts/auth.context";
 const Navbar = () => {
     const { isAuthenticated, isLoading, logout, user } = useAuth();
-    console.log(isAuthenticated, isLoading, user);
 
     return (
         <nav className="flex justify-between h-18 py-2 px-20 items-center shadow-sm  shadow-indigo-200">

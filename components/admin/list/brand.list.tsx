@@ -3,21 +3,19 @@ import Image from 'next/image'
 import AdminListCard from '../list-card'
 import Table from '../table'
 import { createColumnHelper } from '@tanstack/react-table'
-import { CiTrash } from "react-icons/ci";
-import { MdEditDocument } from "react-icons/md";
-import { getAllCategories } from '@/api/category.api'
 import { useQuery } from '@tanstack/react-query'
+import { getAllBrands } from '@/api/brand.api'
 import ActionButtons from '@/components/common/ui/action-button'
 import toast from 'react-hot-toast'
-import BrandList from '../brand/list'
-const CategoryList = () => {
+const BrandList = () => {
 
-    const { isLoading, data, error } = useQuery({
-        queryFn: getAllCategories,
-        queryKey: ['get-all-categories'],
+    const { isLoading, data, } = useQuery({
+        queryFn: getAllBrands,
+        queryKey: ['get-all-brands'],
     })
 
-    console.log(isLoading, data, error)
+
+
 
 
 
@@ -30,10 +28,9 @@ const CategoryList = () => {
             cell: (info) => <strong><i>{info.getValue()}</i></strong>,
             header: () => <span className='text-lg'>Name</span>,
         }),
-        columnHelper.accessor((row) => row.image, {
-            id: 'image',
+        columnHelper.accessor((row) => row.logo, {
+            id: 'logo',
             cell: (info) => {
-                console.log(info.row.original.name)
                 return (
                     <div className='h-16 max-w-20 mx-auto'>
                         <Image
@@ -46,7 +43,7 @@ const CategoryList = () => {
                     </div>
                 )
             },
-            header: () => <span>Image</span>,
+            header: () => <span>Logo</span>,
         }),
         columnHelper.accessor((row) => row.description, {
             id: 'description',
@@ -55,45 +52,31 @@ const CategoryList = () => {
         }),
         columnHelper.accessor((row) => row.createdAt, {
             id: 'createdAt',
-            cell: (info) => <b>{new Date(info.getValue()).toLocaleDateString('en-GB', {
-                day: '2-digit',
-                month: 'short',
-                year: 'numeric',
-                hour: 'numeric',
-                minute: 'numeric',
-                hour12: true,
-
-            })}</b>,
+            cell: (info) => <b>{info.getValue()}</b>,
             header: () => <span>Created At</span>,
         }),
         columnHelper.accessor((row) => row.updatedAt, {
             id: 'updatedAt',
-            cell: (info) => <b>{new Date(info.getValue()).toLocaleDateString('en-GB', {
-                day: '2-digit',
-                month: 'short',
-                year: 'numeric',
-                hour: 'numeric',
-                minute: 'numeric',
-                hour12: true
-
-            })}</b>,
+            cell: (info) => <b>{info.getValue()}</b>,
             header: () => <span>Updated At</span>,
         }),
 
         columnHelper.accessor((row) => row, {
             id: '_',
             cell: (info) => <ActionButtons
-                editLink={`/admin/categories/edit/${info.row.original._id}`}
-                onDelete={() => { toast.success('category deleted') }}
+                editLink={`/admin/brands/edit/${info.row.original._id}`}
+                onDelete={() => { toast.success(`brand:${info.row.original._id} deleted`) }}
             />,
             header: () => <span>Actions</span>,
         }),
 
     ]
+
+    if (isLoading) return <p>Loading</p>
     return (
 
         <AdminListCard>
-            <h4 className='text-[18px] font-semibold text-gray-600'>Category List</h4>
+            <h4 className='text-[18px] font-semibold text-gray-600'>Brands List</h4>
 
             {/* table */}
             <div className='mt-6'>
